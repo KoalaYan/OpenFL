@@ -560,10 +560,10 @@ class FLChallenge(FLManager):
     def buildFeedbackBytes(self, a, v):
         fbb = ""
         for i in range(len(a)):
-            fbb += encode_single('address', a[i]).hex()[24:]
+            fbb += encode('address', a[i]).hex()[24:]
 
         for i in range(len(v)):
-            fbb += encode_single('int256', v[i]).hex()
+            fbb += encode('int256', v[i]).hex()
 
         return fbb
 
@@ -686,7 +686,7 @@ class FLChallenge(FLManager):
                                                                          ))
                 continue
            
-            reservation = Web3.solidityKeccak(['bytes32', 'uint256'], 
+            reservation = Web3.solidity_keccak(['bytes32', 'uint256'], 
                                               [acc.hashedModel, 
                                                acc.secret]).hex()
             if self.fork:

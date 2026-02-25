@@ -11,7 +11,6 @@ from termcolor import colored
 from typing import Tuple, Dict
 import matplotlib.pyplot as plt
 import torch.nn.functional as F
-from eth_abi import encode_single
 from collections import OrderedDict
 import torchvision.transforms as transforms
 from torchvision import datasets, transforms
@@ -33,7 +32,7 @@ class Participant:
         self.val  = _val
         self.model = _model
         self.previousModel = copy.deepcopy(_model)
-        self.modelHash = Web3.solidityKeccak(['string'],[str(_model)]).hex()
+        self.modelHash = Web3.solidity_keccak(['string'],[str(_model)]).hex()
         self.optimizer = _optimizer
         self.criterion = _criterion
         self.userToEvaluate = []
@@ -215,11 +214,11 @@ class PytorchModel:
                 transforms.ToTensor(),
                 transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
             ])
-            trainset = CIFAR10("./data", train=True, download=False, transform=transform)
-            testset = CIFAR10("./data", train=False, download=False, transform=transform_test)
+            trainset = CIFAR10("./data", train=True, download=True, transform=transform)
+            testset = CIFAR10("./data", train=False, download=True, transform=transform_test)
         else:
-            trainset = MNIST("./data", train=True, download=False, transform=transforms.ToTensor())
-            testset = MNIST("./data", train=False, download=False, transform=transforms.ToTensor())
+            trainset = MNIST("./data", train=True, download=True, transform=transforms.ToTensor())
+            testset = MNIST("./data", train=False, download=True, transform=transforms.ToTensor())
             
         
         if _print:
